@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="fr">
+
+
+
+<!-- Back-Redirect System -->
+<script>
+    (function () {
+        // Only activate on main page (not on ofertaespecial)
+        if (window.location.pathname.includes("ofertaespecial")) {
+            return;
+        }
+
+        // Prevent multiple activations in same session
+        if (sessionStorage.getItem('backRedirectActive')) {
+            return;
+        }
+
+        // Mark as active for this session
+        sessionStorage.setItem('backRedirectActive', 'true');
+
+        // Function to setup the back-redirect
+        function setupBackRedirect() {
+            // Push multiple history entries to ensure capture
+            history.pushState(null, null, location.href);
+            history.pushState(null, null, location.href);
+
+            // Intercept back button
+            window.addEventListener("popstate", function (event) {
+                // Redirect to special offer page (absolute path for production)
+                history.pushState(null, null, location.href);
+                window.location.href = "/ofertaespecial.html";
+            });
+        }
+
+        // Execute immediately when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupBackRedirect);
+        } else {
+            // DOM already loaded, execute immediately
+            setupBackRedirect();
+        }
+    })();
+</script>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Offre Spéciale - Sels Rentables</title>
+
+
+    <!-- NO BACK-REDIRECT SCRIPT HERE (prevents loops) -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        media="print" onload="this.media='all'">
+
+    <style>
+        /* ========================= VARS (same as main page) ========================= */
+        :root {
+            --green: #1bb874;
+            --green-dark: #0e9b60;
+            --title: #177a6c;
+            --mint: #18a77b;
+            --mint-ink: #0a5f4a;
+            --card: #ffffff;
+            --bg: #f4faf7;
+            --line: #e9eeec;
+            --pill: #f7fbf9;
+            --sand: #f6efe7;
+            --brown: #5a4638;
+            --ink: #1c1d20;
+            --muted: #6b6f76;
+        }
+
+        /* ========================= BASE ========================= */
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--brown);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        /* ========================= SPECIAL OFFER PAGE ========================= */
+        .special-offer {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background:
+                radial-gradient(circle at top, rgba(27, 184, 116, 0.08) 0%, transparent 50%),
+                var(--bg);
+        }
+
+        .offer-container {
+            max-width: 800px;
+            width: 100%;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            padding: 50px 30px 40px;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--green);
+        }
+
+        /* Alert badge */
+        .offer-badge {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 999px;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.35);
+            text-transform: uppercase;
+            animation: badgePulse 2s ease-in-out infinite;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        @keyframes badgePulse {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1)
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.05)
+            }
+        }
+
+        /* Countdown Timer */
+        .countdown-wrapper {
+            margin: 0 0 30px;
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .countdown-item {
+            background: linear-gradient(180deg, var(--mint-ink), var(--mint));
+            color: #fff;
+            padding: 16px 20px;
+            border-radius: 12px;
+            min-width: 70px;
+            box-shadow: 0 8px 20px rgba(10, 95, 74, 0.25);
+        }
+
+        .countdown-value {
+            display: block;
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .countdown-unit {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown-separator {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--mint);
+        }
+
+        /* Title */
+        .offer-title {
+            font-size: clamp(24px, 5vw, 36px);
+            font-weight: 900;
+            color: var(--mint-ink);
+            margin: 0 0 16px;
+            line-height: 1.2;
+        }
+
+        .offer-subtitle {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--brown);
+            margin: 0 0 24px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .offer-text {
+            font-size: 15px;
+            color: var(--brown);
+            line-height: 1.7;
+            margin: 0 0 30px;
+            text-align: left;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .offer-text strong {
+            color: var(--mint-ink);
+            font-weight: 800;
+        }
+
+        /* Benefits Grid */
+        .offer-benefits {
+            background: var(--pill);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin: 0 0 30px;
+        }
+
+        .offer-benefits h3 {
+            font-size: 18px;
+            color: var(--mint-ink);
+            margin: 0 0 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            text-align: center;
+        }
+
+        .benefit-item {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .benefit-item i {
+            display: block;
+            font-size: 24px;
+            color: var(--mint);
+            margin-bottom: 8px;
+        }
+
+        .benefit-item p {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brown);
+            line-height: 1.4;
+        }
+
+        /* Pricing */
+        .offer-pricing {
+            margin: 0 0 30px;
+        }
+
+        .price-was {
+            font-size: 18px;
+            color: #ff4757;
+            text-decoration: line-through;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .price-now {
+            font-size: clamp(20px, 4vw, 28px);
+            color: var(--mint-ink);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .price-now .highlight {
+            color: var(--green);
+            font-size: clamp(32px, 6vw, 48px);
+        }
+
+        .price-save {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd65a 0%, #ffb23c 100%);
+            color: #1b1b1b;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 900;
+            font-size: 15px;
+            box-shadow: 0 6px 16px rgba(255, 178, 60, 0.35);
+            margin-bottom: 20px;
+        }
+
+        /* CTA Button */
+        .btn-cta-special {
+            display: inline-block;
+            width: 100%;
+            max-width: 560px;
+            background: linear-gradient(180deg, #ffd56a 0%, #ff9a2b 100%);
+            color: #1b1b1b;
+            text-decoration: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            padding: 20px 24px;
+            border-radius: 999px;
+            border: 2px solid #ffb23c;
+            box-shadow:
+                0 18px 36px rgba(255, 154, 43, 0.45),
+                0 0 0 4px rgba(255, 178, 60, 0.24);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            margin: 10px 0;
+            animation: ctaPulseSpecial 1.8s ease-in-out infinite;
+            position: relative;
+        }
+
+        .btn-cta-special::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            top: 6px;
+            height: 40%;
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+            pointer-events: none;
+        }
+
+        .btn-cta-special:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow:
+                0 24px 44px rgba(255, 154, 43, 0.55),
+                0 0 0 5px rgba(255, 178, 60, 0.28);
+        }
+
+        @keyframes ctaPulseSpecial {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.03)
+            }
+        }
+
+        /* Guarantee */
+        .offer-guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0 0;
+            padding: 16px;
+            background: var(--pill);
+            border-radius: 12px;
+            border: 1px solid var(--line);
+        }
+
+        .offer-guarantee i {
+            font-size: 32px;
+            color: var(--mint);
+        }
+
+        .offer-guarantee p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--brown);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .offer-guarantee strong {
+            color: var(--mint-ink);
+            display: block;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        /* Warning */
+        .offer-warning {
+            margin: 24px 0 0;
+            padding: 16px;
+            background: rgba(255, 71, 87, 0.08);
+            border: 2px solid rgba(255, 71, 87, 0.25);
+            border-radius: 12px;
+            font-size: 14px;
+            color: #c23616;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width:600px) {
+            .offer-container {
+                padding: 60px 20px 30px;
+            }
+
+            .offer-badge {
+                font-size: 12px;
+                padding: 8px 18px;
+                top: -16px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 12px 14px;
+            }
+
+            .countdown-value {
+                font-size: 28px;
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+
+            .offer-badge,
+            .btn-cta-special {
+                animation: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="special-offer">
+        <div class="offer-container">
+            <div class="offer-badge">⚠️ Dernière Chance</div>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-wrapper">
+                <div class="countdown-label">Cette offre expire dans :</div>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">15</span>
+                        <span class="countdown-unit">Min</span>
+                    </div>
+                    <span class="countdown-separator">:</span>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">00</span>
+                        <span class="countdown-unit">Sec</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h1 class="offer-title">🎁 Offre Spéciale à -50%</h1>
+
+            <p class="offer-subtitle">
+                Vous étiez sur le point de partir… nous avons donc libéré quelque chose d'exclusif pour vous.<br>
+                Le même produit à <strong>la moitié du prix</strong> de l'offre originale.
+            </p>
+
+            <!-- Text -->
+            <div class="offer-text" align="center">
+                <p align="center">
+                    <strong>Oui, c'est bien cela.</strong> Vous connaissez le prix original.
+                    Vous pouvez maintenant en bénéficier à <strong>50% du prix</strong> — offre unique, exclusive et qui ne
+                    sera plus disponible.
+                </p>
+                <p align="center"> <strong>Si vous refusez ici, le prix revient au tarif normal.</strong>
+                </p>
+            </div>
+
+            <!-- Benefits -->
+            <div class="offer-benefits">
+                <h3>✨ Tout Identique à l'Offre Originale</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-gift"></i>
+                        <p>5 Bonus Exclusifs</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-address-book"></i>
+                        <p>Liste de Fournisseurs</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <p>Accès via l'Application</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-infinity"></i>
+                        <p>Accès à Vie</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="offer-pricing">
+                <div class="price-was">
+                    De <span style="text-decoration:line-through;">19 €</span>
+                </div>
+                <div class="price-now">
+                    Par seulement <span class="highlight">9,90 €</span>
+                </div>
+                <div class="price-save">
+                    💰 Vous économisez 9,10 € (51% de réduction)
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <a href="https://pay.lowify.com.br/go.php?offer=6d2ys57" class="btn-cta-special">
+                Obtenir Maintenant à 50% du Prix
+            </a>
+
+            <!-- Guarantee -->
+            <div class="offer-guarantee">
+                <i class="fas fa-shield-alt"></i>
+                <p>
+                    <strong>Garantie de 7 Jours</strong>
+                    Même garantie inconditionnelle que l'offre originale. Zéro risque.
+                </p>
+            </div>
+
+            <!-- Warning -->
+            <div class="offer-warning">
+                ⚠️ <strong>ATTENTION :</strong> Il s'agit d'une offre unique et exclusive. Si vous quittez cette page, la réduction
+                de 50% sera définitivement perdue et le prix reviendra au tarif original.
+            </div>
+        </div>
+    </div>
+
+    <!-- Countdown Timer Script -->
+    <script>
+        (function () {
+            // 15 minutes countdown
+            let totalSeconds = 15 * 60;
+
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            function updateCountdown() {
+                if (totalSeconds <= 0) {
+                    minutesEl.textContent = '00';
+                    secondsEl.textContent = '00';
+                    return;
+                }
+
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+
+                totalSeconds--;
+            }
+
+            // Update immediately
+            updateCountdown();
+
+            // Update every second
+            setInterval(updateCountdown, 1000);
+        })();
+    </script>
+
+    <!-- Loop Prevention Script -->
+    <script>
+        sessionStorage.setItem('fromOferta', 'true');
+        sessionStorage.removeItem('internalNav');
+    </script>
+
+</body>
+
+</html>

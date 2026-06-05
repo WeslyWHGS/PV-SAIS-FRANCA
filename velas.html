@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Offre Spéciale - Formation Bougies</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        media="print" onload="this.media='all'">
+
+    <style>
+        /* ========================= VARS ========================= */
+        :root {
+            --green: #1bb874;
+            --green-dark: #0e9b60;
+            --title: #177a6c;
+            --mint: #18a77b;
+            --mint-ink: #0a5f4a;
+            --card: #ffffff;
+            --bg: #f4faf7;
+            --line: #e9eeec;
+            --pill: #f7fbf9;
+            --sand: #f6efe7;
+            --brown: #5a4638;
+            --ink: #1c1d20;
+            --muted: #6b6f76;
+            --danger: #ff4757;
+            --danger-dark: #c0392b;
+            --gold: #ffd56a;
+            --gold-dark: #ff9a2b;
+        }
+
+        /* ========================= BASE ========================= */
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--brown);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        /* ========================= UPSHELL PAGE ========================= */
+        .upsell-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background:
+                radial-gradient(circle at top, rgba(27, 184, 116, 0.08) 0%, transparent 50%),
+                var(--bg);
+        }
+
+        .offer-container {
+            max-width: 800px;
+            width: 100%;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            padding: 60px 30px 40px;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--green);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Alert badge */
+        .offer-badge {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 999px;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.35);
+            text-transform: uppercase;
+            animation: badgePulse 2s ease-in-out infinite;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        @keyframes badgePulse {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1)
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.05)
+            }
+        }
+
+        /* Typography */
+        .offer-title {
+            font-size: clamp(26px, 5vw, 42px);
+            font-weight: 900;
+            color: var(--mint-ink);
+            margin: 0 0 16px;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+
+        .offer-title span {
+            color: var(--danger);
+        }
+
+        .offer-subtitle {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--brown);
+            margin: 0 0 30px;
+            line-height: 1.5;
+            font-weight: 600;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Product Highlight Box */
+        .offer-highlight-box {
+            background: #fff9e6;
+            border: 2px dashed #ffeeba;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 0 auto 30px;
+            max-width: 650px;
+            position: relative;
+        }
+
+        .offer-highlight-box::before {
+            content: "NOUVEAUTÉ EXCLUSIVE";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd56a;
+            color: #1b1b1b;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 99px;
+            text-transform: uppercase;
+        }
+
+        .highlight-icon {
+            font-size: 32px;
+            color: #ff9a2b;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .highlight-title {
+            margin: 0;
+            font-weight: 800;
+            color: var(--mint-ink);
+            font-size: clamp(18px, 4vw, 22px);
+            line-height: 1.3;
+        }
+
+        /* Sales Copy */
+        .offer-copy {
+            font-size: 16px;
+            color: var(--brown);
+            line-height: 1.7;
+            margin: 0 0 30px;
+            text-align: center;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .offer-copy p {
+            margin-bottom: 16px;
+        }
+
+        .offer-copy strong {
+            color: var(--mint-ink);
+            font-weight: 800;
+        }
+
+        /* Benefits Grid */
+        .offer-benefits {
+            background: var(--pill);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin: 0 0 30px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .benefit-item {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .benefit-item i {
+            font-size: 24px;
+            color: var(--mint);
+            margin-bottom: 10px;
+        }
+
+        .benefit-item p {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brown);
+            line-height: 1.3;
+        }
+
+        /* Pricing Section */
+        .offer-pricing-box {
+            background: linear-gradient(180deg, #fefefe 0%, #f4faf7 100%);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .price-was {
+            font-size: 18px;
+            color: var(--danger);
+            text-decoration: line-through;
+            font-weight: 800;
+            opacity: 0.8;
+        }
+
+        .price-now {
+            font-size: clamp(24px, 5vw, 36px);
+            color: var(--mint-ink);
+            font-weight: 900;
+        }
+
+        .price-tag {
+            background: #d1fae5;
+            color: #065f46;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* CTA Button */
+        .btn-cta-upsell {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 580px;
+            background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: #1b1b1b;
+            text-decoration: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+            padding: 20px 24px;
+            border-radius: 999px;
+            border: 2px solid #ffb23c;
+            box-shadow:
+                0 18px 36px rgba(255, 154, 43, 0.35),
+                0 0 0 4px rgba(255, 178, 60, 0.15);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            margin: 0 auto;
+            cursor: pointer;
+            animation: ctaPulse 2s ease-in-out infinite;
+        }
+
+        .btn-cta-upsell:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 22px 42px rgba(255, 154, 43, 0.45),
+                0 0 0 5px rgba(255, 178, 60, 0.25);
+        }
+
+        .btn-sub {
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 4px;
+            opacity: 0.85;
+            text-transform: none;
+        }
+
+        @keyframes ctaPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        /* Decline Link */
+        .no-thanks-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: #95a5a6;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: #bdc3c7;
+            padding: 8px 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            opacity: 0.85;
+        }
+
+        .no-thanks-link:hover {
+            opacity: 1;
+            color: var(--danger);
+            text-decoration-color: var(--danger);
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: 6px;
+        }
+
+        /* Guarantee Icon */
+        .guarantee-badge {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* Responsive */
+        @media (max-width:600px) {
+            .offer-container {
+                padding: 50px 20px 30px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="upsell-page">
+        <div class="offer-container">
+            <div class="offer-badge">⚠️ ATTENDEZ ! VOTRE COMMANDE N'EST PAS COMPLÈTE</div>
+
+            <!-- Title -->
+            <h1 class="offer-title">NE FERMEZ PAS <span>CETTE PAGE...</span></h1>
+
+            <p class="offer-subtitle">
+                Vous avez déjà accès aux <strong>Sels de Bain</strong>, mais pour amplifier votre parcours dans
+                le monde des produits thérapeutiques, il manque juste une chose.
+            </p>
+
+            <!-- Box destaque -->
+            <div class="offer-highlight-box">
+                <img src="images/mockup-velas.png" alt="Aroma 360° - Guide d'Entrepreneuriat avec Bougies"
+                    style="width:100%; height:auto; display:block; margin:0 auto; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.15);">
+                <h2 class="highlight-title" style="margin-top:18px;">
+                    Aroma 360° : Entrepreneuriat avec Bougies et Huiles Essentielles
+                </h2>
+                <p style="margin:5px 0 0; font-size:16px; color:var(--brown); font-weight:700;">
+                    + 50 Recettes pour Élargir votre gamme de produits naturels
+                </p>
+            </div>
+
+            <!-- Sales Copy -->
+            <div class="offer-copy">
+                <p>
+                    Les sels prennent soin du corps, mais les bougies prennent soin de <strong>l'âme et de l'environnement.</strong>
+                    Dans cette formation exclusive, vous apprendrez à créer vos propres bougies aromatiques professionnelles.
+                </p>
+                <p>
+                    Imaginez le pouvoir de créer des bougies qui <strong>apaisent l'anxiété, favorisent la concentration</strong> ou donnent simplement
+                    à votre intérieur le parfum d'un spa luxueux.
+                </p>
+                <p style="background:rgba(27, 184, 116, 0.1); padding:10px; border-radius:8px;">
+                    <strong>💰 BONUS :</strong> C'est l'une des formes d'artisanat les plus lucratives aujourd'hui ! Vendez à vos amies ou lancez une activité de zéro.
+                </p>
+            </div>
+
+            <!-- Benefits -->
+            <div class="offer-benefits">
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-leaf"></i>
+                        <p>100% Écologiques<br>et Véganes</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-spa"></i>
+                        <p>Aromathérapie<br>Appliquée</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <p>Haute Rentabilité<br>(Revenu Complémentaire)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Box -->
+            <div class="offer-pricing-box">
+                <div class="price-row">
+                    <span class="price-was">De 29 €</span>
+                    <span class="price-tag">OFFRE UNIQUE : 70% de réduction</span>
+                </div>
+                <div class="price-now">Par seulement 9,90 €</div>
+            </div>
+
+            <!-- CTA -->
+            <a href="https://checkout.essencialucrativa.site/VCCL1O8SCUNE" class="btn-cta-upsell">
+                OUI ! AJOUTER À MA COMMANDE
+                <span class="btn-sub">Offre exclusive et unique sur cette page</span>
+            </a>
+
+            <!-- Decline -->
+            <div>
+                <a href="pagina-de-obrigado.html" class="no-thanks-link">
+                    Non merci, je renonce à la possibilité de créer mes propres bougies.
+                </a>
+            </div>
+
+            <!-- Guarantee -->
+            <div class="guarantee-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>Garantie de 7 Jours • Zéro Risque</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script to flag upsell visit -->
+    <script>
+        sessionStorage.setItem('visitedUpsell', 'true');
+    </script>
+
+</body>
+
+</html>
